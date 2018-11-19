@@ -4,8 +4,8 @@
  * by jlego on 2018-11-17
  */
 
-module.exports = app => {
-  let requestbody = function(req, res, next){
+module.exports = (app = {}, config = {}) => {
+  app.requestbody = function(req, res, next){
     if (req.method == 'PUT') {
       if (req.body) {
         if (!req.body.cmd) {
@@ -22,6 +22,6 @@ module.exports = app => {
     }
     next();
   };
-  app.application.use(requestbody);
-  return requestbody;
+  app.application.use(app.requestbody);
+  return app;
 }
